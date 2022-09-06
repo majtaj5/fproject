@@ -4,8 +4,16 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String buttonName = 'Cliiick';
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +23,33 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('test'),
         ),
-        body: Text('tests'),
+        body: Center(
+            child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    buttonName = 'somethingElse';
+                  });
+                },
+                child: Text(buttonName))),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
-            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
             BottomNavigationBarItem(
-                label: 'Settings', icon: Icon(Icons.settings))
+              label: 'Home',
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.pink,
+                size: 40.0,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: 'Settings',
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black,
+                size: 40.0,
+                semanticLabel: 'Text to announce in accessibility modes',
+              ),
+            )
           ],
         ),
       ),
