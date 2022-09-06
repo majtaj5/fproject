@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String buttonName = 'Cliiick';
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +25,33 @@ class _MyAppState extends State<MyApp> {
           title: Text('test'),
         ),
         body: Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    buttonName = 'somethingElse';
-                  });
-                },
-                child: Text(buttonName))),
+            child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.pink,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.cyan, primary: Colors.brown),
+                  onPressed: () {
+                    setState(() {
+                      buttonName = 'somethingElse';
+                    });
+                  },
+                  child: Text(buttonName)),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      buttonName = 'somethingElse';
+                    });
+                  },
+                  child: Text(buttonName)),
+            ],
+          ),
+        )),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
@@ -51,6 +72,12 @@ class _MyAppState extends State<MyApp> {
               ),
             )
           ],
+          currentIndex: currentIndex,
+          onTap: (int index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
       ),
     );
